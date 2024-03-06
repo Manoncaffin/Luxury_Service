@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Luxury Services{% endblock %}
+{% block title %}Luxury Services recruitment & services{% endblock %}
 
 {% block body %}
 
@@ -73,7 +73,7 @@
                                 <h1 class="text-uppercase mb-30 text-extrabold font-30">We provide customized services on demand</h1>
                                 <p class="width-60 mb-30">You know that attracting and retaining top talent is vital for the success of your business. It’s that end result you’re focused on – hiring a great team – and not the process to get there. This is where we can help...</p>
 
-                                <a href="/contact.html" class="btn btn-lg border secondary waves-effect waves-light mt-20"><span><strong>Get in touch</strong> with us</span></a>
+                                <a href={{ path('app_contact') }} class="btn btn-lg border secondary waves-effect waves-light mt-20"><span><strong>Get in touch</strong> with us</span></a>
                             </div>
                         </div>
                     </div>
@@ -150,12 +150,5 @@
     </div>
 
 </div>
-
-<script type="text/javascript">
-
-    onAppReady(function() {
-        $('.preload').remove();
-    });
-</script>
 
 {% endblock %}

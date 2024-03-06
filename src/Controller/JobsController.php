@@ -8,6 +8,8 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class JobsController extends AbstractController
 {
+
+    // LISTE DE TOUS LES JOBS
     #[Route('/jobs', name: 'app_jobs')]
     public function index(): Response
     {
@@ -16,6 +18,7 @@ class JobsController extends AbstractController
         ]);
     }
 
+    // DETAILS D'UN JOB
     #[Route('/jobs/show', name: 'app_show')]
     public function jobsshow(): Response
     {

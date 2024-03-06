@@ -9,10 +9,19 @@
         <meta name="description" content="">
         <meta name="keywords" content="">
         <meta name="author" content="idmkr.io">
+
+
+
+    {{% block other pages %}}
         <meta name="base_url" content="http://www.fgtechs.fr/z-pedro/wwwluxuryservices">
         <meta name="csrf-token" content="9Tnm0YBCxgVTxoqI1HzccsU5NuE9RughZmhpzgXn">
         <!--  favicon -->
-        <link rel="shortcut icon" href= "assets/img/ico/fav.png">
+        <link rel="shortcut icon" href= "{{ asset('assets/img/ico/fav.png') }}">
+    {{% endblock %}}
+
+
+
+
            <script>
         window.isMobile = (function() {
             var check = false;
@@ -26,7 +35,7 @@
         }
     </script>
     
-    <link href="/assets/css/main.css" rel="stylesheet">
+    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
 
     <link href="https://assets-luxury.projets.garage404.com/css/materialize.css" rel="stylesheet">
     <link href="https://assets-luxury.projets.garage404.com/css/bootstrap.css" rel="stylesheet">
@@ -88,7 +97,7 @@
                         </div>
                         <div class="icon-wrapper">
                             <span class="account">
-                                <a href="/templates/auth/profile.html">
+                                <a href={{ path('app_profil')}}>
                                     <i class="material-icons">&#xE7FD;</i>
                                 </a>
                             </span>
@@ -97,12 +106,12 @@
                             <nav class="overlay-menu">
                                 <ul>
                                     <li><a href="/">Home</a></li>
-                                    <li><a href="/templates/jobs/index.html">Jobs Offers</a></li>
-                                    <li><a href="/templates/compagny.html">About Us</a></li>
-                                    <li><a href="/templates/contact.html">Contact</a></li>
+                                    <li><a href={{ path('app_jobs')}}>Jobs Offers</a></li>
+                                    <li><a href={{ path('app_compagny')}}>About Us</a></li>
+                                    <li><a href={{ path('app_contact')}}>Contact</a></li>
                                     <li>-</li>
-                                    <li><a href="/templates/auth/profile.html">Profile</a></li>
-                                    <li><a href="/logout.html">Logout</a></li>
+                                    <li><a href={{ path('app_profil')}}>Profile</a></li>
+                                    <li><a href={{ path('app_logout')}}>Logout</a></li>
                                 </ul>
                             </nav>
                         </div>
@@ -110,12 +119,12 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="menuzord-menu pull-right light" role="navigation">
                             <li class=" dropdown">
-                                <a target="_self" href="/templates/auth/login.html">
+                                <a target="_self" href={{ path('app_login')}}>
                                     <span>Login</span>
                                 </a>
                             </li>
                             <li class=" dropdown">
-                                <a target="_self" href="/templates/auth/register.html" class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
+                                <a target="_self" href={{ path('app_register')}} class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
                                     <span>Sign Up</span>
                                 </a>
 
@@ -129,19 +138,19 @@
                                 </a>
                             </li>
                             <li class=" dropdown">
-                                <a target="_self" href="/templates/jobs/index.html">
+                                <a target="_self" href={{ path('app_jobs')}}>
                                     <i class=""></i>
                                     <span>Jobs offers</span>
                                 </a>
                             </li>
                             <li class=" dropdown">
-                                <a target="_self" href="/templates/compagny.html">
+                                <a target="_self" href={{ path('app_compagny')}}>
                                     <i class=""></i>
                                     <span>About us</span>
                                 </a>
                             </li>
                             <li class=" dropdown">
-                                <a target="_self" href="/templates/contact.html">
+                                <a target="_self" href={{ path('app_contact')}}>
                                     <i class=""></i>
                                     <span>Contact</span>
                                 </a>
