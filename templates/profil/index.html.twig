@@ -1,15 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Luxury Services recruitment & services{% endblock %}
+{% block title %}{% endblock %}
 
-{# {% scriptblocksupp %}  
-    <style>
-        select 
-        {
-            display: block!important;
-        }
-    </style>
-     {% endblock %} #}
+{% block metaSupp %}
+{% endblock %}
+
+{% block differentestyleRegister %}
+<style>
+    select {
+        display: block!important;
+    }
+</style>
+{% endblock %}
 
 {% block body %}
 
@@ -261,5 +263,8 @@
     </div>
 
 </div>
+
+{% block scriptSupp %}
+{% endblock %}
 
 {% endblock %}

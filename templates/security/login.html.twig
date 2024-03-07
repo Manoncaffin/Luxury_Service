@@ -2,10 +2,11 @@
 
 {% block title %}Log in!{% endblock %}
 
+{% block metaSupp %}
+{% endblock %}
+
 {% block body %}
-
 <div class="base">
-
     <!-- Page -->
     <div class="page">
 
@@ -32,7 +33,49 @@
                     <div class="col-xs-12 col-sm-6 col-md-4">
                         <div class="card card-panel">
                             <h3 class="text-extrabold">Log in to your account</h3>
+
                             <form id="login-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
+                                {% if error %}
+                                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                                {% endif %}
+                                {# s'il y a un user connecté #}
+                                {% if app.user %}
+                                    <div class="mb-3">
+                                        You are logged in as {{ app.user.userIdentifier }}, <a href={{ path('app_logout') }}>Logout</a>
+                                    </div>
+                                {% endif %}
+
+                                <label for="inputEmail">Email</label>
+                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+                                
+
+                                
+
+
+
+
+
+                                <label for="inputPassword">Password</label>
+                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+
+                                <input type="hidden" name="_csrf_token"
+                                    value="{{ csrf_token('authenticate') }}">
+                                    
+                                <div class="checkbox">
+                                    <input type="checkbox" id="keep-logged" name="remember" value="1" />
+                                    <label for="keep-logged">Keep me logged in</label>
+                                </div>
+
+                                <button class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20" type="submit">
+                                    LOGIN
+                                </button>
+
+                                <div class="links">
+                                    <a href="#!">Forgot your password?</a>
+                                </div>
+                            </form>
+
+                            {# <form id="login-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
 
                                 <input type="hidden" name="_token" value="">
 
@@ -62,7 +105,7 @@
                                 <div class="links">
                                     <a href="#!">Forgot your password?</a>
                                 </div>
-                            </form>
+                            </form> #}
                         </div>
                     </div>
 
@@ -82,29 +125,7 @@
     </div>
 </div>
 
-{# <form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+{% block scriptSupp %}
+{% endblock %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href={{ path('app_logout') }}>Logout</a>
-        </div>
-    {% endif %}
-
-    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
-    <label for="inputEmail">Email</label>
-    <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-    <label for="inputPassword">Password</label>
-    <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-    <input type="hidden" name="_csrf_token"
-           value="{{ csrf_token('authenticate') }}"
-    >
-
-    <button class="btn btn-lg btn-primary" type="submit">
-        Sign in
-    </button>
-</form> #}
 {% endblock %}

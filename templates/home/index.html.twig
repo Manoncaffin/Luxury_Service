@@ -1,27 +1,19 @@
 {% extends 'base.html.twig' %}
-        {% block home %}
-            <meta name="base_url" content="https://assets-luxury.projets.garage404.com">
-            <meta name="csrf-token" content="utSEZUUxgneXBCQY5My9Djz8rVhqLiG7PLq3ThDA">
-            <!--  favicon -->
-            <link rel="shortcut icon" href="assets/img/luxury-services-logo.png">
-        {% endblock %}
 
-{% block title %}Luxury Services recruitment & services{% endblock %}
+{% block title %}{% endblock %}
+
+{% block metaSupp %}
+    <meta name="base_url" content="https://assets-luxury.projets.garage404.com">
+    <meta name="csrf-token" content="utSEZUUxgneXBCQY5My9Djz8rVhqLiG7PLq3ThDA">
+    <!--  favicon -->
+    <link rel="shortcut icon" href="{{ asset('assets/img/luxury-services-logo.png') }}">
+{% endblock %}
 
 {% block body %}
-
-<body id="top">
-
 <div class="base">
-
     <!-- Page -->
     <div class="page">
 
-        <!-- RS5.0 Core JS Files -->
-
-        <!-- SLIDER REVOLUTION 5.0 EXTENSIONS  (Load Extensions only on Local File Systems! The following part can be removed on Server for On Demand Loading) -->
-
-        <!-- start revolution slider 5.0 -->
         <section class="rev_slider_wrapper">
             <div class="rev_slider materialize-slider">
                 <ul>
@@ -423,6 +415,7 @@
 
 
 <!-- RS5.0 Init  -->
+{% block scriptSupp %}
 <script type="text/javascript">
     document.querySelector(".rev_slider_wrapper").setAttribute("style",
         "background:url('assets/img"+(
@@ -487,4 +480,6 @@
         });
     });
 </script>
+{% endblock %}
+
 {% endblock %}

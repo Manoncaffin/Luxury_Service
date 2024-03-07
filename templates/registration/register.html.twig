@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
-{% block differentestylesheets %}
-    {{ parent() }}
+
+{% block title %}Register{% endblock %}
+
+{% block metaSupp %}
+    <meta name="base_url" content="http://www.fgtechs.fr/z-pedro/wwwluxuryservices">
+    <meta name="csrf-token" content="9Tnm0YBCxgVTxoqI1HzccsU5NuE9RughZmhpzgXn">
+    <!--  favicon -->
+    <link rel="shortcut icon" href= "{{ asset('assets/img/ico/fav.png') }}">
+{% endblock %}
+
+{% block differentestyleRegister %}
    <style>
         .page-title-bg {
             background-image: url(../../assets/img/bg3.jpg);
@@ -23,96 +32,10 @@
             font-size: 16px
         }
     </style>
-    {% endblock %}
-
-{% block title %}Register{% endblock %}
+{% endblock %}
 
 {% block body %}
-
-<body id="top">
-
-<!-- Navigation -->
-<header id="header" class="tt-nav transparent-header ">
-    <div class="header-sticky semi-transparent">
-        <div class="container">
-
-            <div id="materialize-menu" class="menuzord">
-
-                <a class="brand logo-brand" href="/"></a>
-                <div id="mobile-menu">
-                    <div class="nav-wrapper" id="toggle">
-                        <span class="top"></span>
-                        <span class="middle"></span>
-                        <span class="bottom"></span>
-                    </div>
-                    <div class="icon-wrapper">
-                        <span class="account">
-							<a href={{ path('app_profil') }}>
-                                <i class="material-icons">&#xE7FD;</i>
-                            </a>
-						</span>
-                    </div>
-                    <div class="nav-overlay" id="overlay">
-                        <nav class="overlay-menu">
-                            <ul>
-                                <li><a href="/">Home</a></li>
-                                <li><a href={{ path('app_jobs') }}>Jobs Offers</a></li>
-                                <li><a href={{ path('app_compagny') }}>About Us</a></li>
-                                <li><a href={{ path('app_compagny') }}>Contact</a></li>
-                                <li>-</li>
-                                <li><a href={{ path('app_profil') }}>Profile</a></li>
-                                <li><a href={{ path('app_logout') }}>Logout</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="menuzord-menu pull-right light" role="navigation">
-                        <li class=" dropdown">
-                            <a target="_self" href={{ path('app_login') }}>
-                                <span>Login</span>
-                            </a>
-                        </li>
-                        <li class=" dropdown">
-                            <a target="_self" href={{ path('app_register') }} class="btn bn-lg gradient secondary btn-block waves-effect waves-light btn-register">
-                                <span>Sign Up</span>
-                            </a>
-
-                        </li>
-                    </ul>
-                    <ul class="menuzord-menu pull-right light" role="navigation">
-                        <li class="active dropdown">
-                            <a target="_self" href="/">
-                                <i class=""></i>
-                                <span>Home</span>
-                            </a>
-                        </li>
-                        <li class=" dropdown">
-                            <a target="_self" href={{ path('app_jobs') }}>
-                                <i class=""></i>
-                                <span>Jobs offers</span>
-                            </a>
-                        </li>
-                        <li class=" dropdown">
-                            <a target="_self" href={{ path('app_compagny') }}>
-                                <i class=""></i>
-                                <span>About us</span>
-                            </a>
-                        </li>
-                        <li class=" dropdown">
-                            <a target="_self" href={{ path('app_contact') }}>
-                                <i class=""></i>
-                                <span>Contact</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</header>
 <div class="base">
-
     <!-- Page -->
     <div class="page">
 
@@ -139,7 +62,52 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-sm-offset-3 card card-panel">
                         <h3 class="text-extrabold">Create a new account</h3>
-                        <form id="register-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
+                                {{ form_errors(registrationForm) }}
+                                {{ form_start(registrationForm, {
+                                    'attr' : {
+                                        'id': 'register-form',
+                                        'role': 'form',
+                                        'accept-char': 'UTF-8',
+                                        'autocomplete': 'off',
+                                        'data-parsley-validate': true                                    }
+                                }) }}
+
+                                <input type="hidden" name="_token" value="">
+                                
+                                <form id="register-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
+                                {{form_label(registrationForm.email)}}
+                                {{form_widget(registrationForm.email)}}
+
+
+                                    {{ form_row(registrationForm.email) }}
+                                    {{ form_row(registrationForm.plainPassword, {
+                                        label: 'Password'
+                                    }) }}
+    
+                                <div class="input-field">
+                                <input type="password" name="password_confirmation" id="password_confirmation" value=""
+                                       required
+                                       data-parsley-trigger="change"
+                                       data-parsley-equalto="#password"
+                                       data-parsley-error-message="Password does not match.">
+                                <label for="password_confirmation">Confirm Password</label>
+                                <i class="fa fa-eye show-password"></i>
+                                <span class="help-block">Confirm your password.</span>   
+                            </div>
+
+                            <div class="checkbox">
+                                <input type="checkbox" name="accept-terms" value="1" id="accept-terms" required/>
+                                <label for="accept-terms">I have read and I accept the <a href="#!" target="_blank">Terms Of Use</a></label>
+                            {{ form_row(registrationForm.agreeTerms) }}
+                            </div>
+                            <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">CREATE AN ACCOUNT</button>
+                                {{ form_end(registrationForm) }}
+                            <div class="links">
+                                <a href={{ path('app_login') }}>Already have an account? Click here</a>
+                            </div>
+
+
+                        {# <form id="register-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
 
                             <input type="hidden" name="_token" value="">
 
@@ -180,7 +148,7 @@
                             <div class="links">
                                 <a href={{ path('app_login') }}>Already have an account? Click here</a>
                             </div>
-                        </form>
+                        </form> #}
                     </div>
 
                 </div>
@@ -191,20 +159,7 @@
 
 </div>
 
-    {# <h1>Register</h1>
-
-    {{ form_errors(registrationForm) }}
-
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.agreeTerms) }}
-
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }} #}
-
-
+{% block scriptSupp %}
+{% endblock %}
 
 {% endblock %}
