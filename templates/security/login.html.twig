@@ -38,30 +38,31 @@
                                 {% if error %}
                                     <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                 {% endif %}
-                                {# s'il y a un user connecté #}
-                                {% if app.user %}
+                                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+                                {# {% if app.user %}
                                     <div class="mb-3">
                                         You are logged in as {{ app.user.userIdentifier }}, <a href={{ path('app_logout') }}>Logout</a>
                                     </div>
-                                {% endif %}
+                                {% endif %} #}
 
-                                <label for="inputEmail">Email</label>
-                                <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                                
+                                <div class="input-field">
+                                    <input type="email" name="email" id="inputEmail" value="{{ last_username }}" autocomplete="email"
+                                           required autofocus data-parsley-trigger="change"
+                                           data-parsley-error-message="A valid email address is required.">
+                                    <label for="inputEmail">Email</label>
+                                    <span class="help-block">Type your email address.</span>
+                                </div>
 
-                                
+                                <div class="input-field">
+                                    <input type="password" name="password" id="inputPassword" autocomplete="current-password"
+                                           required data-parsley-trigger="change" data-parsley-error-message="The password must be at least 6 characters.">
+                                    <label for="inputPassword">Password</label>
+                                    <i class="fa fa-eye show-password"></i>
+                                    <span class="help-block">Type your password.</span>
+                                </div>
 
-
-
-
-
-                                <label for="inputPassword">Password</label>
-                                <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
-                                <input type="hidden" name="_csrf_token"
-                                    value="{{ csrf_token('authenticate') }}">
-                                    
-                                <div class="checkbox">
+                                  <div class="checkbox">
                                     <input type="checkbox" id="keep-logged" name="remember" value="1" />
                                     <label for="keep-logged">Keep me logged in</label>
                                 </div>
@@ -74,38 +75,6 @@
                                     <a href="#!">Forgot your password?</a>
                                 </div>
                             </form>
-
-                            {# <form id="login-form" role="form" method="post" accept-char="UTF-8" autocomplete="off" data-parsley-validate>
-
-                                <input type="hidden" name="_token" value="">
-
-                                <div class="input-field">
-                                    <input type="email" name="email" id="email" value=""
-                                           required
-                                           autofocus
-                                           data-parsley-trigger="change"
-                                           data-parsley-error-message="A valid email address is required.">
-                                    <label for="email">Email</label>
-                                    <span class="help-block">Type your email address.</span>
-                                </div>
-                                <div class="input-field">
-                                    <input type="password" name="password" id="password"
-                                           required
-                                           data-parsley-trigger="change"
-                                           data-parsley-error-message="The password must be at least 6 characters.">
-                                    <label for="password">Password</label>
-                                    <i class="fa fa-eye show-password"></i>
-                                    <span class="help-block">Type your password.</span>
-                                </div>
-                                <div class="checkbox">
-                                    <input type="checkbox" id="keep-logged" name="remember" value="1" />
-                                    <label for="keep-logged">Keep me logged in</label>
-                                </div>
-                                <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">Login</button>
-                                <div class="links">
-                                    <a href="#!">Forgot your password?</a>
-                                </div>
-                            </form> #}
                         </div>
                     </div>
 
