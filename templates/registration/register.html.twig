@@ -57,11 +57,12 @@
 
 
         <!-- Page Content-->
-        <section class="section-padding gray-bg log-section">
+        {# <section class="section-padding gray-bg log-section">
             <div class="container">
                 <div class="row">
                     <div class="col-xs-12 col-sm-6 col-sm-offset-3 card card-panel">
-                        <h3 class="text-extrabold">Create a new account</h3>                      
+                        <h3 class="text-extrabold">Create a new account</h3>   
+                  
                                 {{ form_start(registrationForm, {
                                     'attr' : {
                                         'id': 'register-form',
@@ -83,28 +84,74 @@
                                 {{ form_label(registrationForm.plainPassword) }}
                                 <i class="fa fa-eye show-password"></i>
                                 <span class="help-block">Type your password.</span>
-                            </div>
+                            </div>  #}
     
-                                <div class="input-field">
+                                {# <div class="input-field">
                                 <input type="password" name="password_confirmation" id="password_confirmation" value="" required/>
-                                <label for="password_confirmation">Confirm your password.</label>
+                                <label for="password_confirmation">Confirm your password</label>
                                 <i class="fa fa-eye show-password"></i>
-                                <span class="help-block">Confirm your password.</span>   
-                            </div>
+                                <span class="help-block">Confirm your password</span>   
+                            </div> #}
 
-                            <div class="checkbox">
+                            {# <div class="checkbox">                           
                             <input type="checkbox" name="accept-terms" id="accept-terms" value="1" required/>
                                 <label for="accept-terms">I have read and I accept the 
                                 <a href="#!" target="_blank">Terms Of Use</a>
                                 </label> 
-                                {{ form_widget(registrationForm.agreeTerms) }}
+                               {{ form_row(registrationForm.agreeTerms) }}
                             </div>
 
                             <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">CREATE AN ACCOUNT</button>
+                             {{ form_end(registrationForm) }}
                             <div class="links">
                                 <a href={{ path('app_login') }}>Already have an account? Click here</a>
+                            </div>                   
+                    </div>
+                </div>
+            </div>
+        </section> #}
+
+
+
+
+          <section class="section-padding gray-bg log-section">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-6 col-sm-offset-3 card card-panel">
+                        <h3 class="text-extrabold">Create a new account</h3>
+                        
+                        {% for flash_error in app.flashes('verify_email_error') %}
+                            <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+                        {% endfor %}
+
+                        {# <h1>Register</h1> #}
+
+                        {{ form_errors(registrationForm) }}
+                        {{ form_start(registrationForm) }}
+                        <div class="input-field">
+                                <input type="email" name="{{field_name(registrationForm.email)}}" id="email" value="{{field_value(registrationForm.email)}}"
+                                    required
+                                    data-parsley-trigger="change"
+                                    data-parsley-error-message="A valid email address is required.">
+                                <label for="email">Email</label>
+                                <span class="help-block">Type your email address.</span>
                             </div>
-                          {{ form_end(registrationForm) }}
+                            {{ form_row(registrationForm.plainPassword, {
+                                label: 'Password'
+                            }) }}
+                            <div class="checkbox">
+                                <input type="checkbox" name="{{field_name(registrationForm.agreeTerms)}}" value="1" id="accept-terms" required/>
+                                <label for="accept-terms">I have read and I accept the <a href="#!" target="_blank">Terms Of Use</a></label>
+                            </div>
+                            {# {{ form_row(registrationForm.agreeTerms) }} #}
+
+                            <button type="submit" class="btn btn-lg gradient secondary btn-block waves-effect waves-light mt-20 mb-20">
+                                Create an account
+                            </button>
+                        {{ form_end(registrationForm) }}
+                        <div class="links">
+                                <a href="{{path('app_login')}}">Already have an account? Click here</a>
+                            </div>
                     </div>
 
                 </div>
