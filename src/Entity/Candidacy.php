@@ -13,45 +13,23 @@ class Candidacy
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $candidate = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $jobOffer = null;
-
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\Column(length: 255)]
     private ?string $status = null;
 
+    #[ORM\ManyToOne(inversedBy: 'candidacies')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?JobOffer $jobOffer = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Candidate $candidate = null;
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCandidate(): ?string
-    {
-        return $this->candidate;
-    }
-
-    public function setCandidate(string $candidate): static
-    {
-        $this->candidate = $candidate;
-
-        return $this;
-    }
-
-    public function getJobOffer(): ?string
-    {
-        return $this->jobOffer;
-    }
-
-    public function setJobOffer(string $jobOffer): static
-    {
-        $this->jobOffer = $jobOffer;
-
-        return $this;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -74,6 +52,30 @@ class Candidacy
     public function setStatus(string $status): static
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    public function getJobOffer(): ?JobOffer
+    {
+        return $this->jobOffer;
+    }
+
+    public function setJobOffer(?JobOffer $jobOffer): static
+    {
+        $this->jobOffer = $jobOffer;
+
+        return $this;
+    }
+
+    public function getCandidate(): ?Candidate
+    {
+        return $this->candidate;
+    }
+
+    public function setCandidate(?Candidate $candidate): static
+    {
+        $this->candidate = $candidate;
 
         return $this;
     }

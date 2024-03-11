@@ -16,6 +16,9 @@ class Experience
     #[ORM\Column(length: 255)]
     private ?string $time = null;
 
+    #[ORM\ManyToOne(inversedBy: 'experience')]
+    private ?Candidate $candidate = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -29,6 +32,18 @@ class Experience
     public function setTime(string $time): static
     {
         $this->time = $time;
+
+        return $this;
+    }
+
+    public function getCandidate(): ?Candidate
+    {
+        return $this->candidate;
+    }
+
+    public function setCandidate(?Candidate $candidate): static
+    {
+        $this->candidate = $candidate;
 
         return $this;
     }

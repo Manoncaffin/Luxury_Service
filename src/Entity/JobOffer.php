@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\JobOfferRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: JobOfferRepository::class)]
@@ -14,13 +16,7 @@ class JobOffer
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $category = null;
-
-    #[ORM\Column(length: 255)]
     private ?string $titleOffer = null;
-
-    #[ORM\Column(length: 255)]
-    private ?string $customer = null;
 
     #[ORM\Column(length: 255)]
     private ?string $statusOffer = null;
@@ -31,21 +27,25 @@ class JobOffer
     #[ORM\Column]
     private ?\DateTimeImmutable $closingDate = null;
 
+    #[ORM\ManyToOne(inversedBy: 'jobOffers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Customer $customer = null;
+
+    #[ORM\ManyToOne(inversedBy: 'jobOffers')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?JobCategory $category = null;
+
+    #[ORM\OneToMany(targetEntity: Candidacy::class, mappedBy: 'jobOffer')]
+    private Collection $candidacies;
+
+    public function __construct()
+    {
+        $this->candidacies = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
-    }
-
-    public function getCategory(): ?string
-    {
-        return $this->category;
-    }
-
-    public function setCategory(string $category): static
-    {
-        $this->category = $category;
-
-        return $this;
     }
 
     public function getTitleOffer(): ?string
@@ -56,18 +56,6 @@ class JobOffer
     public function setTitleOffer(string $titleOffer): static
     {
         $this->titleOffer = $titleOffer;
-
-        return $this;
-    }
-
-    public function getCustomer(): ?string
-    {
-        return $this->customer;
-    }
-
-    public function setCustomer(string $customer): static
-    {
-        $this->customer = $customer;
 
         return $this;
     }
@@ -107,4 +95,59 @@ class JobOffer
 
         return $this;
     }
+
+    public function getCustomer(): ?Customer
+    {
+        return $this->customer;
+    }
+
+    public function setCustomer(?Customer $customer): static
+    {
+        $this->customer = $customer;
+
+        return $this;
+    }
+
+    public function getCategory(): ?JobCategory
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?JobCategory $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Candidacy>
+     */
+    public function getCandidacies(): Collection
+    {
+        return $this->candidacies;
+    }
+
+    public function addCandidacy(Candidacy $candidacy): static
+    {
+        if (!$this->candidacies->contains($candidacy)) {
+            $this->candidacies->add($candidacy);
+            $candidacy->setJobOffer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCandidacy(Candidacy $candidacy): static
+    {
+        if ($this->candidacies->removeElement($candidacy)) {
+            // set the owning side to null (unless already changed)
+            if ($candidacy->getJobOffer() === $this) {
+                $candidacy->setJobOffer(null);
+            }
+        }
+
+        return $this;
+    }
+
 }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidateRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -32,9 +34,6 @@ class Candidate
     #[ORM\Column]
     private ?\DateTimeImmutable $registratedAt = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $gender = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $birthDate = null;
 
@@ -44,23 +43,34 @@ class Candidate
     #[ORM\Column(length: 255)]
     private ?string $sectorActivity = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $user = null;
+    #[ORM\ManyToOne(inversedBy: 'candidates')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?JobCategory $category = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $passport = null;
+    #[ORM\OneToOne(inversedBy: 'candidate', cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Gender $gender = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $pictureProfil = null;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $curriculumVitae = null;
+    #[ORM\OneToMany(targetEntity: experience::class, mappedBy: 'candidate')]
+    private Collection $experience;
 
-    #[ORM\Column(length: 255)]
-    private ?string $category = null;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?File $passport = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $experience = null;
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?File $pictureProfil = null;
+
+    #[ORM\OneToOne(cascade: ['persist', 'remove'])]
+    private ?File $curriculumVitae = null;
+
+    public function __construct()
+    {
+        $this->experience = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -139,18 +149,6 @@ class Candidate
         return $this;
     }
 
-    public function getGender(): ?string
-    {
-        return $this->gender;
-    }
-
-    public function setGender(string $gender): static
-    {
-        $this->gender = $gender;
-
-        return $this;
-    }
-
     public function getBirthDate(): ?\DateTimeInterface
     {
         return $this->birthDate;
@@ -187,74 +185,104 @@ class Candidate
         return $this;
     }
 
-    public function getUser(): ?string
-    {
-        return $this->user;
-    }
-
-    public function setUser(string $user): static
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    public function getPassport(): ?string
-    {
-        return $this->passport;
-    }
-
-    public function setPassport(string $passport): static
-    {
-        $this->passport = $passport;
-
-        return $this;
-    }
-
-    public function getPictureProfil(): ?string
-    {
-        return $this->pictureProfil;
-    }
-
-    public function setPictureProfil(string $pictureProfil): static
-    {
-        $this->pictureProfil = $pictureProfil;
-
-        return $this;
-    }
-
-    public function getCurriculumVitae(): ?string
-    {
-        return $this->curriculumVitae;
-    }
-
-    public function setCurriculumVitae(string $curriculumVitae): static
-    {
-        $this->curriculumVitae = $curriculumVitae;
-
-        return $this;
-    }
-
-    public function getCategory(): ?string
+    public function getCategory(): ?JobCategory
     {
         return $this->category;
     }
 
-    public function setCategory(string $category): static
+    public function setCategory(?JobCategory $category): static
     {
         $this->category = $category;
 
         return $this;
     }
 
-    public function getExperience(): ?string
+    public function getGender(): ?Gender
+    {
+        return $this->gender;
+    }
+
+    public function setGender(Gender $gender): static
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, experience>
+     */
+    public function getExperience(): Collection
     {
         return $this->experience;
     }
 
-    public function setExperience(string $experience): static
+    public function addExperience(experience $experience): static
     {
-        $this->experience = $experience;
+        if (!$this->experience->contains($experience)) {
+            $this->experience->add($experience);
+            $experience->setCandidate($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExperience(experience $experience): static
+    {
+        if ($this->experience->removeElement($experience)) {
+            // set the owning side to null (unless already changed)
+            if ($experience->getCandidate() === $this) {
+                $experience->setCandidate(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getPassport(): ?File
+    {
+        return $this->passport;
+    }
+
+    public function setPassport(?File $passport): static
+    {
+        $this->passport = $passport;
+
+        return $this;
+    }
+
+    public function getPictureProfil(): ?File
+    {
+        return $this->pictureProfil;
+    }
+
+    public function setPictureProfil(?File $pictureProfil): static
+    {
+        $this->pictureProfil = $pictureProfil;
+
+        return $this;
+    }
+
+    public function getCurriculumVitae(): ?File
+    {
+        return $this->curriculumVitae;
+    }
+
+    public function setCurriculumVitae(?File $curriculumVitae): static
+    {
+        $this->curriculumVitae = $curriculumVitae;
 
         return $this;
     }
