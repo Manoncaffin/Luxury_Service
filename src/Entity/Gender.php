@@ -19,6 +19,10 @@ class Gender
     #[ORM\OneToOne(mappedBy: 'gender', cascade: ['persist', 'remove'])]
     private ?Candidate $candidate = null;
 
+    public function __toString() {
+        return $this -> gender;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

@@ -55,7 +55,7 @@ class Candidate
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
 
-    #[ORM\OneToMany(targetEntity: experience::class, mappedBy: 'candidate')]
+    #[ORM\OneToMany(targetEntity: Experience::class, mappedBy: 'candidate')]
     private Collection $experience;
 
     #[ORM\OneToOne(cascade: ['persist', 'remove'])]
@@ -229,7 +229,7 @@ class Candidate
         return $this->experience;
     }
 
-    public function addExperience(experience $experience): static
+    public function addExperience(Experience $experience): static
     {
         if (!$this->experience->contains($experience)) {
             $this->experience->add($experience);
@@ -239,7 +239,7 @@ class Candidate
         return $this;
     }
 
-    public function removeExperience(experience $experience): static
+    public function removeExperience(Experience $experience): static
     {
         if ($this->experience->removeElement($experience)) {
             // set the owning side to null (unless already changed)
