@@ -24,6 +24,10 @@ class JobCategory
     #[ORM\OneToMany(targetEntity: Candidate::class, mappedBy: 'category', orphanRemoval: true)]
     private Collection $candidates;
 
+    public function __toString() {
+        return $this -> title;
+    }
+
     public function __construct()
     {
         $this->jobOffers = new ArrayCollection();

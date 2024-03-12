@@ -38,6 +38,11 @@ class JobOffer
     #[ORM\OneToMany(targetEntity: Candidacy::class, mappedBy: 'jobOffer')]
     private Collection $candidacies;
 
+    public function __toString() {
+        return $this -> category;
+        // return $this -> customer;
+    }
+
     public function __construct()
     {
         $this->candidacies = new ArrayCollection();

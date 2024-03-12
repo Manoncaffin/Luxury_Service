@@ -4,7 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Candidacy;
 use App\Entity\Candidate;
+use App\Entity\Customer;
+use App\Entity\Experience;
+use App\Entity\File;
 use App\Entity\Gender;
+use App\Entity\JobCategory;
+use App\Entity\JobOffer;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -44,8 +49,13 @@ class AdminDashboardController extends AbstractDashboardController
     public function configureMenuItems(): iterable
     {
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
-        yield MenuItem::linkToCrud('Candidacy', 'fas fa-list', Candidacy::class);
-        yield MenuItem::linkToCrud('Candidate', 'fas fa-list', Candidate::class);
-        yield MenuItem::linkToCrud('Gender', 'fas fa-list', Gender::class);
+        yield MenuItem::linkToCrud('Candidate', 'fa-solid fa-user', Candidate::class);
+        yield MenuItem::linkToCrud('Gender', 'fa-solid fa-person', Gender::class);
+        yield MenuItem::linkToCrud('File', 'fa-solid fa-folder-open', File::class);
+        yield MenuItem::linkToCrud('Experience', 'fa-solid fa-briefcase', Experience::class);
+        yield MenuItem::linkToCrud('JobCategory', 'fa-solid fa-table', JobCategory::class);
+        yield MenuItem::linkToCrud('Customer', 'fa-solid fa-user-secret', Customer::class);
+        yield MenuItem::linkToCrud('JobOffer', 'fa-solid fa-flag', JobOffer::class);
+        yield MenuItem::linkToCrud('Candidacy', 'fa-solid fa-square-check', Candidacy::class);
     }
 }

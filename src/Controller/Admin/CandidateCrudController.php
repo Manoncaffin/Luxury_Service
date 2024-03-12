@@ -5,6 +5,9 @@ namespace App\Controller\Admin;
 use App\Entity\Candidate;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\BooleanField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\CountryField;
+use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TelephoneField;
@@ -24,10 +27,19 @@ class CandidateCrudController extends AbstractCrudController
         return [
             TextField::new('lastname'),
             TextField::new('firstname'),
+            AssociationField::new('gender'),
+            DateField::new('birthDate'),
+            CountryField::new('birthCity'),
             TelephoneField::new('phone'),
-            TextField::new('city'),
-            TextField::new('availability'),
-            AssociationField::new('registratedAt'),
+            CountryField::new('city'),
+            BooleanField::new('availability'),
+            DateField::new('registratedAt'),
+            // TextField::new('sectorActivity'),
+            AssociationField::new('passport'),
+            AssociationField::new('pictureProfil'),
+            AssociationField::new('curriculumVitae'),
+            AssociationField::new('experience'),
+            AssociationField::new('category'),
         ];
     }
     

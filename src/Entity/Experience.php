@@ -19,6 +19,10 @@ class Experience
     #[ORM\ManyToOne(inversedBy: 'experience')]
     private ?Candidate $candidate = null;
 
+    public function __toString() {
+        return $this -> time;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

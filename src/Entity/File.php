@@ -16,6 +16,10 @@ class File
     #[ORM\Column(length: 255)]
     private ?string $URL = null;
 
+    public function __toString() {
+        return $this -> URL;
+    }
+
     public function getId(): ?int
     {
         return $this->id;
