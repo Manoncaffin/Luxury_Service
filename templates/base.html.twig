@@ -31,7 +31,7 @@
         </script>
 
 
-    <link href="{{ asset('assets/css/main.css') }}" rel="stylesheet">
+    <link href="/assets/css/main.css" rel="stylesheet">
     <link href="https://assets-luxury.projets.garage404.com/css/materialize.css" rel="stylesheet">
     <link href="https://assets-luxury.projets.garage404.com/css/bootstrap.css" rel="stylesheet">
     <link href="https://assets-luxury.projets.garage404.com/css/style.css" rel="stylesheet">
@@ -41,7 +41,7 @@
     <link href="https://assets-luxury.projets.garage404.com/css/revolution-navigation.css" rel="stylesheet">
         {% block differentestyleRegister %}
         {% endblock %}
-    <script src="https://assets-luxury.projets.garage404.com/js/modernizr.js"></script>
+<script src="https://assets-luxury.projets.garage404.com/js/modernizr.js"></script>
     <script src="https://assets-luxury.projets.garage404.com/js/jquery.js"></script>
     <script src="https://assets-luxury.projets.garage404.com/js/animated-headline.js"></script>
     <script src="https://assets-luxury.projets.garage404.com/js/bootstrap-tabcollapse.js"></script>
@@ -115,7 +115,7 @@
                         <ul class="menuzord-menu pull-right light" role="navigation">
                         <li class=" dropdown">
                         {% if app.user %}
-                        <a href="{{ path('app_logout') }}">Déconnexion</a>
+                        <a href="{{ path('app_logout') }}">Logout</a>
                         </li>
                         {% else %}
                             <li class=" dropdown">                   
@@ -162,9 +162,10 @@
         </div>
     </header>
 
-
+<div class="base">
         {% block body %}
         {% endblock %}
+</div>
 
 
     <!-- Footer -->

@@ -45,4 +45,5 @@ class JobOfferRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+
 }

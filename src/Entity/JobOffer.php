@@ -38,9 +38,20 @@ class JobOffer
     #[ORM\OneToMany(targetEntity: Candidacy::class, mappedBy: 'jobOffer')]
     private Collection $candidacies;
 
+    #[ORM\Column(length: 255)]
+    private ?string $description = null;
+
+    #[ORM\Column]
+    private ?int $reference = null;
+
+    #[ORM\Column(length: 255)]
+    private ?string $location = null;
+
+    #[ORM\Column]
+    private ?int $salary = null;
+
     public function __toString() {
-        return $this -> category;
-        // return $this -> customer;
+        return $this -> customer;
     }
 
     public function __construct()
@@ -125,6 +136,18 @@ class JobOffer
         return $this;
     }
 
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+
+        return $this;
+    }
+
     /**
      * @return Collection<int, Candidacy>
      */
@@ -155,4 +178,39 @@ class JobOffer
         return $this;
     }
 
+    public function getReference(): ?int
+    {
+        return $this->reference;
+    }
+
+    public function setReference(int $reference): static
+    {
+        $this->reference = $reference;
+
+        return $this;
+    }
+
+    public function getLocation(): ?string
+    {
+        return $this->location;
+    }
+
+    public function setLocation(string $location): static
+    {
+        $this->location = $location;
+
+        return $this;
+    }
+
+    public function getSalary(): ?int
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(int $salary): static
+    {
+        $this->salary = $salary;
+
+        return $this;
+    }
 }

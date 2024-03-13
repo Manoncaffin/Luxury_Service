@@ -33,11 +33,14 @@ class Customer
     #[ORM\OneToMany(targetEntity: JobOffer::class, mappedBy: 'customer', orphanRemoval: true)]
     private Collection $jobOffers;
 
+    public function __toString() {
+        return $this -> nameSociety;
+    }
+
     public function __construct()
     {
         $this->jobOffers = new ArrayCollection();
     }
-
 
     public function getId(): ?int
     {
