@@ -37,12 +37,13 @@
                     <ul class="portfolio-filter brand-filter text-center">
                     <li class="active waves-effect waves-light" data-group="all">All</li>
                     {% for category in categories %}
-                        <li class=" waves-effect waves-light" data-group={{ category.title }}>{{ category.title }}</li>
+                        <li class=" waves-effect waves-light" data-group={{ category.titleData }}>{{ category.title }}</li>
                     {% endfor %}
                     </ul>
                     <div class="portfolio portfolio-with-title col-2 gutter mt-30">
                         {% for job in jobs %}
-                        <div class="portfolio-item" data-groups='["all"]'>
+                
+                        <div class="portfolio-item" data-groups='["all", "{{job.category.titleData}}"]'>
                             <div class="portfolio-wrapper">
                                 <div class="card job-card">
                                     <div class="card-content">
@@ -64,7 +65,7 @@
                                         <p class="truncate-text">{{ job.description }}</p>
                                     </div>
                                     <div class="card-action">
-                                        <a class="btn btn-md primary border waves-effect waves-dark" href="/jobs/show.html">Details</a>
+                                        <a class="btn btn-md primary border waves-effect waves-dark" href={{ path ('app_jobs_show') }}>Details</a>
                                         <a class="btn btn-md primary waves-effect waves-light" href="#!">Apply</a>
                                     </div>
                                 </div>
@@ -111,4 +112,9 @@
 {% endblock %}
 
 {% endblock %}
+
+
+
+
+
 

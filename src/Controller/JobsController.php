@@ -26,9 +26,6 @@ class JobsController extends AbstractController
     }
 
 
-
-
-
     // DETAILS D'UN JOB
     #[Route('/jobs/show', name: 'app_show')]
     public function jobsshow(): Response
@@ -36,5 +33,14 @@ class JobsController extends AbstractController
         return $this->render('jobs/show.html.twig', [
             'controller_name' => 'JobsController',
         ]);
+    }
+
+    #[Route("/jobs/show", name: "app_jobs_show")]
+    public function selectshow(JobOfferRepository $jobOfferRepository): Response
+    {
+    $jobs = $jobOfferRepository -> findAll();
+    return $this->render('jobs/show.html.twig', [
+        'jobs' => $jobs,
+    ]);
     }
 }

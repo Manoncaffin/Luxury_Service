@@ -24,6 +24,9 @@ class JobCategory
     #[ORM\OneToMany(targetEntity: Candidate::class, mappedBy: 'category', orphanRemoval: true)]
     private Collection $candidates;
 
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $titleData = null;
+
     public function __toString() {
         return $this -> title;
     }
@@ -107,6 +110,18 @@ class JobCategory
                 $candidate->setCategory(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getTitleData(): ?string
+    {
+        return $this->titleData;
+    }
+
+    public function setTitleData(?string $titleData): static
+    {
+        $this->titleData = $titleData;
 
         return $this;
     }
